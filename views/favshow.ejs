@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Favorite Show</title>
+    <script src="p5.js"></script>
+    <style>
+        div.left{
+            width:70%;
+            float:left
+        }
+        div.right{
+            width:30%;
+            float:right;
+        }
+
+        h1{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1>What's Your Favorite Show?</h1>
+    <div class="container">
+        <div class=" left">
+            <script src="sketch.js"></script>
+        </div>
+        <div class="right">
+            <form id="showForm" action="/showForm" method="POST">
+            <%console.log("ejs data: ", data)%>
+            <% for (var i = 0; i < data.length; i ++){%>
+                <input type="radio" name="show" value="<%=data[i].show%>"><%=data[i].show%> <br> 
+            <%}%>
+            <input type="radio" name="show" value="">Other <input type="text" name="newOption" />
+            <input id="submitbutton" type="submit" value="submit!">
+            </form>
+        </div>
+        
+        
+    </div>
+    
+    
+</body>
+</html>
