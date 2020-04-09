@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Lyric Search</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript"> 
+            $(document).ready(function(){
+                $('#btn').click(function(){
+                    let artistName = $('#artistName').val();
+                console.log("artist Name: ", artistName)
+                    let songTitle = $('#songTitle').val();
+                    console.log("Song: ", songTitle)
+                    $.ajax({
+                        url: "https://api.lyrics.ovh/v1/" + artistName+ "/" + songTitle,
+                        dataType:'json',
+                        success: function(data){
+                            console.log("success: ",data);
+                            let lyrics = data.lyrics;
+                            lyrics = lyrics.split("\n").join(" <br/> ")
+                            console.log("lyrics: ", lyrics)
+                            $('#lyrics').html(lyrics)
+                        },
+                        error: function(){
+                            $('#lyrics').html("Hmmmm... Maybe you spelled something wrong?")
+                            console.log("error")
+                        }
+                    });
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <h1>Search for lyrics!</h1>
+        Artist Name: <input type="text" name="artistName" id="artistName">
+        <br>
+        Song Title: <input type="text" name="songTitle" id="songTitle">
+        <input type="button" value="submit" id="btn">
+        
+        <p id="lyrics"></p>
+    </body>
+</html>
