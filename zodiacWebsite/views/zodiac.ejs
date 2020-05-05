@@ -1,0 +1,417 @@
+<html translate="no">
+    <head>
+        <title>Zodiac HomePage</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="../p5.js"></script>
+        <style>
+            /* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+            body{
+                background-color:black;
+                font-family:Arial;
+            }
+            h1 {
+                font-style:italic;
+                font-family:Impact;
+                color:white;
+                text-align: center;
+                margin-bottom:2%;
+            }
+            .flex-nav {
+                display: flex;
+                justify-content: space-around;
+                font-family:Arial;
+            }
+             button#navBTN {
+                text-decoration:none;
+                border:none;
+                background-color:9F45B0;
+                width:33.33%;
+                color:white;
+                font-size: 20px;
+                margin-top: -1%;
+
+            }
+            button#navBTN:hover {
+                opacity: 0.5;
+                transition-duration: 0.5s;
+            }
+            
+            .img-fluid{
+                max-width: 100%;
+            }
+            h5{
+                display:inline;
+            }
+            .post {
+                margin:5%;
+                margin-bottom:10%;
+            }
+            img#post-image{
+                border: 10px solid white;
+                z-index:1;
+                border-bottom-width: 60px;
+                -webkit-box-shadow: 10px 10px 10px 5px rgba(10,10,10, 0.5);
+                box-shadow: 10px 10px 10px 5px rgba(10,10,10, 0.5);
+            }
+            div#tagList {
+                z-index:2;
+
+            }
+            h2 {
+                color:white;
+            }
+            p {
+                display:inline;
+                color:black;
+            }
+            div.sortBy,div.filters,div.voteMost,div.voteLeast, div.sortBy, div.filters {
+                border-radius:10px;
+/*                height:auto;*/
+                margin-top:10%;
+                padding:5%;
+                box-shadow: 5px 5px 5px 2px rgba(10,10,10, 0.5);
+            }
+            div.votecol1L{
+/*                display:block;*/
+                width:50%;
+                float:left;
+            }
+            div.votecol1R {
+/*                display:block;*/
+                width:50%;
+                float:left;
+            }
+            div.voteMost:after, div.voteLeast:after {
+                content: "";
+                display: table;
+                clear: both;
+                
+            }
+            span#voteItem {
+                display:block;
+            }
+            h5#title{
+                margin-left:10%;
+            }
+            div#sketch-holder, div#sketch-holder2,div.voteMost,div.voteLeast,div.sortBy, div.filters{
+                background-color:white;
+                border: 3px solid lavender;
+                box-shadow: 0 0 1px #b3ff51, 0 0 2px plum, 0 0 6px plum, 0 0 12px plum, inset 0 0 1px plum, inset 0 0 2px plum, inset 0 0 6px plum, inset 0 0 12px plum;
+
+                border-radius:10px;
+                margin-top:10%;
+            }
+            div#filterItems{
+                height:200px;
+                overflow-y:auto;
+            }
+            input#voteBTN{
+                margin-left:35%
+            }
+
+            img#post-image,div#sketch-holder {
+                background-color:white;
+            }
+            button#sortNew, button#sortOld, button#sortTrend {
+                font-family:'Arial';
+                color:white;
+                border-radius:10px;
+                background-color:#9F45B0;
+                margin:1%;
+                border:5px solid #9F45B0;
+            }
+            button#sortNew:hover, button#sortOld:hover, button#sortTrend:hover {
+                background-color:plum;
+                border:5px solid plum;
+                transition-duration: 0.3s;
+                
+            }
+            input[type=checkbox] {
+                width:15px; 
+                height:15px;
+            }
+            button#clearBTN,input#applyBTN{
+                border:none;
+                background-color:#9F45B0;
+                color:white;   
+                border-radius:5px;
+            }
+            button#clearBTN:hover, input#applyBTN:hover{
+                background-color:plum;
+                transition-duration: 0.3s;
+            }
+            input#voteBTN {
+                border:none;
+                background-color:#9F45B0;
+                color:white;   
+                border-radius:5px;
+                border-right:10px;
+                border-left:10px;
+                border-top:5px;
+                border-bottom:5px;
+                border-style:solid;
+                border-color:#9F45B0
+            }
+            input#voteBTN:hover {
+                background-color:plum;
+                transition-duration: 0.3s;
+                border-right:10px;
+                border-left:10px;
+                border-top:5px;
+                border-bottom:5px;
+                border-style:solid;
+                border-color:plum
+            }
+            .post{
+                display:inline-block;
+                margin-bottom:0;
+            }
+
+            div#postDetails {
+                color:black;
+                position:relative;
+                top:-60px;
+            }
+            h4.post {
+                position:absolute;
+                right:15;
+            }
+            input.post {
+                position:absolute;
+                top:20;
+                right:0;
+            }
+            input.post:hover {
+                transform:scale(1.1)
+            }
+        </style>
+        
+        <script type="text/javascript">
+        
+            $(document).ready(function(){
+                
+                $('#sortNew').click(function(){
+                    //console.log("new clicked");
+                    window.location = '/zodiac/newest';
+                })
+                
+                $('#sortOld').click(function(){
+                    //console.log("new clicked");
+                    window.location = '/zodiac/oldest';
+                })
+                
+                $('#sortTrend').click(function(){
+                    //console.log("new clicked");
+                    window.location = '/zodiac/trending';
+                })
+                
+                $('#clearBTN').click(function(){
+                    window.location = '/zodiac';
+                    //console.log("clear checkbox");
+//                    var checked = $(this).is(':checked');
+//                    $(':checkbox').each(function() {
+//                        //str += this.checked ? "1," : "0,";
+//                        if(this.checked){
+//                            this.checked=false
+//                        }
+//                    });
+                })
+            })
+        </script>
+        
+    </head>
+    
+    <body>
+        <div id="header">
+            <h1 style="margin-bottom:2%;">Zodiacs in Retrograde</h1>
+            <div class='flex-nav'>
+                <button id="navBTN" type="button" onclick="window.location = '/about.html';">THE SIGNS</button>
+                <button id="navBTN" type="button" onclick="window.location = '/zodiac';">HOME</button>
+                <button id="navBTN" type="button" onclick="window.location = '/upload';">UPLOAD</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <%if (data.filters){%>
+                <%let view = "Filtering By: "%>
+                <%for (var f = 0; f < data.filters.length;f ++){%>
+                    <%if (f == data.filters.length-1){%>
+                        <%view+=data.filters[f]%>
+                    <%} else {%>
+                        <%view+=data.filters[f] + ", "%>
+                    <%}%>
+                <%}%>
+                
+                <h2 style="text-align:center"><%=view%></h2>
+            <%}%>
+        <div class="row">
+                <!--            p5js data visualization-->
+            <div class="col-4">
+                <div id="sketch-holder">
+                    <script src="../sketchMost.js"></script>
+                </div>
+                    <%let signs = ['Capricorn','Aquarius','Pisces','Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius'];%>
+                    <div class="voteMost">
+                    <h5 id="title">Vote Most Problematic Sign</h5>
+                    <form action="/voteMost" method="POST">
+                        <%let signList = data.voting.data%>
+                        <div class="voteCol1L">
+                            <%for (var i=0; i < 6; i++){%>
+                                <%let labelID = "voteMost"+i%>
+                                    <span id="voteItem">
+                                    <input type="radio" id="<%labelID%>" name="voteMost" value="<%=signList[i].sign%>">
+                                    <label for="<%labelID%>"> <%=signList[i].sign%></label>
+                                    </span>
+                            <%}%>    
+                        </div>
+                        <div class="voteCol1R">
+                            <%for (var i=6; i < signList.length; i++){%>
+                                    <%let labelID = "voteMost"+i%>
+                                    <span id="voteItem">
+                                    <input type="radio" id="<%labelID%>" name="voteMost" value="<%=signList[i].sign%>">
+                                    <label for="<%labelID%>"> <%=signList[i].sign%></label>
+                                    </span>
+                            <%}%>    
+                        </div> 
+                        <input id="voteBTN" type="submit" value="enter">
+                    </form>
+                    </div>
+                    
+                    <div class="voteLeast">
+                    <h5 id="title">Vote Least Problematic Sign</h5>
+                    <form action="/voteLeast" method="POST">
+                        <div class="voteCol1L">
+                            <%for (var i=0; i < 6; i++){%>
+                                <%let labelID = "voteLeast"+i%>
+                                    <span id="voteItem">
+                                    <input type="radio" id="<%labelID%>" name="voteLeast" value="<%=signList[i].sign%>">
+                                    <label for="<%labelID%>"> <%=signList[i].sign%></label>
+                                    </span>
+                            <%}%>    
+                        </div>
+                        <div class="voteCol1R">
+                            <%for (var i=6; i < signList.length; i++){%>
+                                <%let labelID = "voteLeast"+i%>
+                                    <span id="voteItem">
+                                    <input type="radio" id="<%labelID%>" name="voteLeast" value="<%=signList[i].sign%>">
+                                    <label for="<%labelID%>"> <%=signList[i].sign%></label>
+                                    </span>
+                            <%}%>    
+                        </div> 
+                        <input id="voteBTN" type="submit" value="enter">
+                    </form>
+                    </div>
+            </div>
+            
+            
+            
+            
+            <div class="col-6">
+                <%if (data.sortBy == 'newest'){%>
+                <%for (var i = data.data.length-1; i >= 0; i --){%>
+                    <div class="post">
+                            
+                            <% let id= "/like/"+ data.data[i].file %>
+                            <form action="<%=id%>" method="POST">
+
+                            <div class="image">
+                            <%let path = "../uploads/" + data.data[i].file%>
+                            <img src="<%=path%>" class="img-fluid" id="post-image">
+                            </div>
+                            <div id="postDetails">
+<!--                            <div class="d-flex flex-column">-->
+                            <div class="post" id="tagList">
+                                <%for (var j=0; j < data.data[i].tags.length; j++){%>
+                                    <p>#<%=data.data[i].tags[j]%></p>
+                                <%}%>
+                            </div>
+<!--                            <div class="justify-content-center">-->
+                            <h4 class="post"><%=data.data[i].likes%></h4>
+                            <input class="post" id="flame" type="image" name="submit" src="https://i.pinimg.com/originals/23/09/d4/2309d4c1a1224de5745a372dcb7a88ce.png" border="0" alt="Submit" style="width: 30px;z-index:2; margin:0" />
+<!--                            </div>-->
+<!--                            </div>-->
+                            </div> 
+                            </form>
+                            </div> 
+                        <%}%>
+                <%} else {%>
+                    <%for (var i =0; i < data.data.length; i ++){%>
+                    <div class="post">
+                            
+                            <% let id= "/like/"+ data.data[i].file %>
+                            <form action="<%=id%>" method="POST">
+
+                            <div class="image">
+                            <%let path = "../uploads/" + data.data[i].file%>
+                            <img src="<%=path%>" class="img-fluid" id="post-image">
+                            </div>
+                            <div id="postDetails">
+<!--                            <div class="d-flex flex-column">-->
+                            <div class="post" id="tagList">
+                                <%for (var j=0; j < data.data[i].tags.length; j++){%>
+                                    <p>#<%=data.data[i].tags[j]%></p>
+                                <%}%>
+                            </div>
+<!--                            <div class="justify-content-center">-->
+                            <h4 class="post"><%=data.data[i].likes%></h4>
+                            <input class="post" id="flame" type="image" name="submit" src="https://i.pinimg.com/originals/23/09/d4/2309d4c1a1224de5745a372dcb7a88ce.png" border="0" alt="Submit" style="width: 30px;z-index:2; margin:0" />
+<!--                            </div>-->
+<!--                            </div>-->
+                            </div> 
+                            </form>
+                            </div> 
+                        <%}%>
+                <%}%>
+                
+                       
+            </div>
+            <div class="col-2">
+                <div class="sortBy">
+                    <h5>Sort By: </h5>
+                    <br>
+                    <button type="button" id="sortNew">newest</button>
+                    <br>
+                    <button type="button" id="sortOld">oldest</button>
+                    <br>
+                    <button type="button" id="sortTrend">trending</button>
+                </div>
+                
+                <div class="filters">
+                    <h5>Filter By:</h5>
+                    <form action='/filter' method="POST">
+                        <div id="filterItems">
+                        <%for (var i=0; i < data.tagList.length; i++){%>
+                            <input class="styled-checkbox" type="checkbox" id="filter" name="<%=data.tagList[i]%>" value="<%=data.tagList[i]%>">
+                        <label id ="filter" for="<%=data.tagList[i]%>"> <%=data.tagList[i]%></label><br>
+                        <%}%>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                        <button type="button" id="clearBTN">clear</button>
+                        <input id="applyBTN" type="submit" value="apply">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>

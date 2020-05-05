@@ -1,0 +1,229 @@
+<html translate="no">
+    <head>
+        <title>Upload Image</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        
+        <style>
+            ::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+           body{
+                background-color:black;
+                color:white;
+                font-family:Arial;
+            }
+            h1 {
+                font-style:italic;
+                font-family:Impact;
+                color:white;
+                text-align: center;
+                margin-bottom:2%;
+            }
+            .flex-nav {
+                display: flex;
+/*                flex-wrap: nowrap;*/
+                justify-content: space-around;
+                font-family:Arial;
+            }
+             button#navBTN {
+                text-decoration:none;
+                border:none;
+                background-color:9F45B0;
+                width:33.33%;
+                color:white;
+                font-size: 20px;
+                margin-top: -1%;
+
+            }
+            button#navBTN:hover {
+                opacity: 0.5;
+                transition-duration: 0.5s;
+            }
+            .image-preview {
+                width:500px;
+                min-height:300px;
+                border: 2px solid gray;
+                margin-top:15px;
+                
+                /*  text*/
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-weight:bold;
+                color:grey;
+            }
+            .image-preview-image {
+                display:none;
+                width:100%;
+            }
+            .container{
+                margin-top:2%;
+            }
+            div.imageSection{
+                float:left;
+                width:50%;
+                overflow:hidden
+            }
+            div.tagList{
+                float:left;
+                width:50%;
+            }
+            form{
+                display:flex;
+            }
+            div#checkbox {
+                display:inline;
+                padding-left:1%;
+                padding-right:1%;
+            }
+            input.uploadBTN {
+                border:none;
+                color:white;
+                cursor: pointer;
+
+            }
+            input[type =checkbox]{
+                display:none;
+            }
+            input[type=checkbox] + label {
+                color: #9F45B0;
+                background-color:white;
+                padding:1%;
+                border: 3px solid #9F45B0;
+                border-radius:10px;
+            } 
+            input[type=checkbox]:checked + label {
+                color: white;
+                border: 3px solid #9F45B0;
+                background-color:#9F45B0;
+            }
+            input[type=checkbox]:hover + label:hover {
+                cursor:pointer;
+            }
+            button#newOptBTN {
+                background-color:black;
+                font-size:25;
+                font-weight:bold;
+                color:white;
+                border:none;
+            }
+            button#newOptBTN:hover {
+                color:#9F45B0;
+                transition-duration: 0.3s;
+            }
+            input#newOpt {
+                border-radius:5px;
+                border:none;
+            }
+            input#submitBTN {
+                margin-top:3%;
+                color:white;
+                border-radius:10px;
+                border:5px solid #9F45B0;
+                background-color:#9F45B0;
+            }
+            input#submitBTN:hover {
+                background-color:plum;
+                border:5px solid plum;
+                transition-duration: 0.3s;
+            }
+            
+        </style>
+        <script type="text/javascript">
+            window.addEventListener('load',function(){
+                const inputImage = document.getElementById('userImage');
+                const previewContainer = document.getElementById('image-preview');
+                const previewImage = previewContainer.querySelector('.image-preview-image')
+                const previewText = previewContainer.querySelector('.image-preview-text');
+
+                inputImage.addEventListener('change',function(){
+                    const file = this.files[0];
+                    if (file){
+                        console.log("file")
+                        const reader = new FileReader();
+                        previewText.style.display = "none";
+                        previewImage.style.display = "block"
+                        
+                        reader.addEventListener('load',function(){
+                            previewImage.setAttribute('src',this.result)
+                        })
+                        
+                        reader.readAsDataURL(file);
+                    }
+                })
+                let newOpt = $('#newOpt');
+                let container = $('#tags');
+                $('#newOptBTN').click(function(){
+                    let newItem = newOpt.val()
+                    $('<input />', { type: 'checkbox', id:newItem , value: newItem, name:newItem, checked:true }).appendTo(container);
+                    $('<label />', { 'for': newItem, text: newItem }).appendTo(container);
+                    newOpt.val("")
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            <h1>Zodiacs in Retrograde</h1>
+            <div class='flex-nav'>
+                <button id="navBTN" type="button" onclick="window.location = '/about.html';">THE SIGNS</button>
+                <button id="navBTN" type="button" onclick="window.location = '/zodiac';">HOME</button>
+                <button id="navBTN" type="button" onclick="window.location = '/upload';">UPLOAD</button>
+            </div>
+        </div>
+        
+        <div class="container">
+            <%var tagList = tags%>
+            <form action="/uploadMeme" method="post" enctype="multipart/form-data">
+                <div class="col-6">
+
+                <input class= "uploadBTN" id="userImage" type="file" accept=".jpg" name="thefile">
+                    <br />
+                    <div class="image-preview" id="image-preview">
+                        <img src="" alt="Image Preview" class="image-preview-image">
+                        <span class="image-preview-text" id="image-preview-text">Image Preview</span>
+                    </div>  
+
+                </div>
+                <div class="col-6">
+                <p>Upload your favorite zodiac images and add tags for whichever sign applies and any other tags you want!</p>
+                <hr style="height:2px; color:9F45B0; background-color:9F45B0" noshade="noshade">
+
+                <div id="tags">
+                <%for (var j = 0; j < tagList.length; j++){%>
+                        <div id="checkbox">
+                        <input type="checkbox" id="<%=tagList[j]%>" name="<%=tagList[j]%>" value="<%=tagList[j]%>">
+                        <label for="<%=tagList[j]%>"> <%=tagList[j]%></label>
+                        </div>
+                    <%}%>
+                </div>
+                <br>
+                Other Tags: <input id='newOpt' type="text" name="newOption" value="">
+                <button type="button" id="newOptBTN">+</button>
+                <br/>    
+<!--                </div>-->
+                    <div class="row justify-content-center">
+                    <input id='submitBTN' type="submit" value="SUBMIT">
+                    </div>
+                    </div>
+
+            </form>
+        </div>
+    </body>
+</html>

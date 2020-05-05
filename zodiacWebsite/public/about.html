@@ -1,0 +1,169 @@
+<html translate="no">
+    <head>
+        <title>Zodiac FAQ</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript">
+             $(document).ready(function(){
+                $('.zodiacSign').on('mouseover', function(event){
+                    $('.zodiacSign').not($(this)).addClass('hover');
+                });
+
+                $('.zodiacSign').on('mouseout', function(){
+                    $('.zodiacSign').not($(this)).removeClass('hover');
+                });
+             })
+        </script>
+        <style>
+            body {
+                background-color: black;
+                color:white;
+                font-family: Arial;
+            }
+            h1 {
+                text-align: center;
+                font-family:Impact;
+                margin-bottom: 2%;
+            }
+            .flex-nav {
+                display: flex;
+/*                flex-wrap: nowrap;*/
+                justify-content: space-around;
+                font-family:Arial;
+            }
+             button#navBTN {
+                text-decoration:none;
+                border:none;
+                background-color:9F45B0;
+                width:33.33%;
+/*                padding:1%;*/
+                color:white;
+                font-size: 20px;
+                margin-top: -1%;
+/*                border-radius: 10px;*/
+            }
+            button#navBTN:hover {
+                opacity: 0.5;
+                transition-duration: 0.5s;
+            }
+            div#container{
+                padding: 5%;
+            }
+            div#row {
+                display: flex;
+                justify-content:center
+/*                //margin-left: 8%;*/
+/*                //margin-right: 8%;*/
+            }
+            img, img#column {
+/*                padding-left: 5%;*/
+/*                padding-right: 5%;*/
+                padding-bottom: 1%;
+/*                width:15%;*/
+            }
+            figcaption{
+                text-align: center;
+            }
+            #row:after {
+                content: "";
+                display: table;
+                clear: both;
+                justify-content: space-around
+            }
+/*
+            img:hover{
+                transform: scale(1.1);
+            }
+*/
+            .zodiacSign.hover {
+                transition-duration: 0.3s;
+                opacity:0.5;
+/*
+                -webkit-filter: grayscale(100%);
+                   -moz-filter: grayscale(100%);
+                    -ms-filter: grayscale(100%);
+                     -o-filter: grayscale(100%);
+                        filter: grayscale(100%);
+                        filter: gray;  IE 6-9 
+*/
+}
+            
+        </style>
+    </head>
+    
+    <body>
+        <div id="header">
+            <h1 style="margin-bottom:2%;">Zodiacs in Retrograde</h1>
+            <div class='flex-nav'>
+                <button id="navBTN" type="button" onclick="window.location = '/about.html';">THE SIGNS</button>
+                <button id="navBTN" type="button" onclick="window.location = '/zodiac';">HOME</button>
+                <button id="navBTN" type="button" onclick="window.location = '/upload';">UPLOAD</button>
+            </div>
+        </div>
+        <div id="container">
+            <div id="row">
+                <div class="col-12 justify d-flex justify-content-around">
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/capricorn.png' alt='missing' onclick="window.location = '/zodiacInfo/capricorn';"/>
+                    <figcaption>Capricorn</figcaption>
+                </figure>
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/aqurius.png' alt='missing' onclick="window.location = '/zodiacInfo/aquarius';"/>
+                    <figcaption>Aquarius</figcaption>
+                </figure>
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/pisces.png' alt='missing' onclick="window.location = '/zodiacInfo/pisces';"/>
+                    <figcaption>Pisces</figcaption>
+                </figure>
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/aries.png' alt='missing' onclick="window.location = '/zodiacInfo/aries';"/>
+                    <figcaption>Aries</figcaption>
+                </figure>
+                </div>
+            </div>
+            
+            <div id="row">
+                <div class="col-12 justify d-flex justify-content-around">
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/taurus.png' alt='missing' onclick="window.location = '/zodiacInfo/taurus';"/>
+                    <figcaption>Taurus</figcaption>
+                </figure>
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/gemini.png' alt='missing' onclick="window.location = '/zodiacInfo/gemini';"/>
+                    <figcaption>Gemini</figcaption>
+                </figure>
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/cancer.png' alt='missing' onclick="window.location = '/zodiacInfo/cancer';"/>
+                    <figcaption>Cancer</figcaption>
+                </figure>
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/leo.png' alt='missing' onclick="window.location = '/zodiacInfo/leo';"/>
+                    <figcaption>Leo</figcaption>
+                </figure>
+                </div>
+            </div>
+            
+            <div id="row">
+                <div class="col-12 justify d-flex justify-content-around">
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/virgo.png' alt='missing' onclick="window.location = '/zodiacInfo/virgo';"/>
+                    <figcaption>Virgo</figcaption>
+                </figure>
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/libra.png' alt='missing' onclick="window.location = '/zodiacInfo/libra';"/>
+                    <figcaption>Libra</figcaption>
+                </figure>
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/scorpio.png' alt='missing' onclick="window.location = '/zodiacInfo/scorpio';"/>
+                    <figcaption>Scorpio</figcaption>
+                </figure>
+                <figure>
+                    <img class="zodiacSign" src='zodiacImages/sagittarius.png' alt='missing' onclick="window.location = '/zodiacInfo/sagittarius';"/>
+                    <figcaption>Sagittarius</figcaption>
+                </figure>
+                </div>
+            </div>
+            
+        </div>
+    </body>
+</html>

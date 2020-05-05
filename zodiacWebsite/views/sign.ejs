@@ -1,0 +1,140 @@
+<html translate="no">
+    <head>
+        <title>Zodiac Sign Details</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <style>
+            body{
+                background-color: black;
+                color:white;
+                font-family:Arial;
+            }
+            h1 {
+                text-align: center;
+                font-family:Impact;
+            }
+            .flex-nav {
+                display: flex;
+                justify-content: space-around;
+                font-family:Arial;
+            }
+             button#navBTN {
+                text-decoration:none;
+                border:none;
+                background-color:9F45B0;
+                width:33.33%;
+                color:white;
+                font-size: 20px;
+                margin-top: -1%;
+            }
+            button#navBTN:hover {
+                opacity: 0.5;
+                transition-duration: 0.5s;
+            }
+            
+            div.container {
+                padding-top:3%;
+            }
+           li.good,li.bad {
+               margin-left:-15%;
+                list-style:none;
+            }
+            p {
+                text-align:left; 
+            }
+            span#title{
+                font-size:25;
+                font-weight:bold;
+                font-style:italic;
+            }
+            div#compat{
+                margin-top:-18%;
+            }
+            figcaption{
+                text-align:center;
+            }
+            img#compat:hover{
+                transform: scale(1.1);
+            }
+        </style>
+    </head>
+    
+    <body>
+        <%console.log("ejs page: ", data)%>
+        <div id="header">
+            <h1 style="margin-bottom:2%;">Zodiacs in Retrograde</h1>
+            <div class='flex-nav'>
+                <button id="navBTN" type="button" onclick="window.location = '/about.html';">THE SIGNS</button>
+                <button id="navBTN" type="button" onclick="window.location = '/zodiac';">HOME</button>
+                <button id="navBTN" type="button" onclick="window.location = '/upload';">UPLOAD</button>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-4 text-center">
+                    <img src="https://img.pngio.com/hd-freetoedit-devil-demon-demonic-horn-horns-neon-demon-devil-horn-png-914_362.png" width=250>
+                    <ul>
+                        <%for (var i =0; i < data[0].bad_traits.length; i ++){%>
+                        <li class="bad"><%=data[0].bad_traits[i].toUpperCase()%></li>
+                        <%}%>
+                    </ul>
+                </div>
+                
+                <div class="col-4 text-center">
+                    <div style="height:100; padding-top:5%;" id="angel">
+                    <img src="https://i.ya-webdesign.com/images/halo-png.png" width=250>
+                    </div>
+                    <ul>
+                        <%for (var i =0; i < data[0].good_traits.length; i ++){%>
+                        <li class="good"><%=data[0].good_traits[i].toUpperCase()%></li>
+                        <%}%>
+                    </ul>
+                </div>
+                <div class="col-4 text-center">
+                    <%console.log("name: ", data[0].name)%>
+                    <%let linkURL = 'https://marketing-kasamba.kassrv.com/content/Marcom/copypress/img-sign-'+data[0].name.toLowerCase()+'.png'%>
+                    <img src="<%=linkURL%>" width="150">
+                    <h2><%=data[0].name%></h2>
+                    <h4><%=data[0].sun_dates[0]%> - <%=data[0].sun_dates[1]%></h4>
+                    <p><span id="title">VIBE: </span><%=data[0].vibe%></p>
+                    <p><span id="title">HOW TO SPOT: </span><%=data[0].how_to_spot%></p>
+                    <p><span id="title">QUALITIES: </span><%=data[0].keywords%></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8" id="compat">
+                    <h3 class="text-center">Compatability</h3>
+                    <div class="d-flex justify-content-around">
+                        <% let url1 = 'https://marketing-kasamba.kassrv.com/content/Marcom/copypress/img-sign-'+data[0].compatibility[0].toLowerCase().trim()+'.png'%>
+                        <% let loc = data[0].compatibility[0].toLowerCase().trim()%>
+                        <%if (data[0].name.toLowerCase() == 'pisces'){%>
+                            <%console.log("you are a pisces")%>
+                            <% url1 = 'https://marketing-kasamba.kassrv.com/content/Marcom/copypress/img-sign-taurus.png'%>
+                            <%loc = 'taurus'%>
+                        <%}%>
+                        <% let url2 = 'https://marketing-kasamba.kassrv.com/content/Marcom/copypress/img-sign-'+data[0].compatibility[1].toLowerCase().trim()+'.png'%>
+                        <figure>
+                            <img id="compat" src="<%=url1%>" width="100" onclick="window.location = '/zodiacInfo/<%=loc%>';">
+                            <figcaption><%=loc%></figcaption>
+                        </figure>
+                        <figure>
+                            <img id="compat" src="<%=url2%>" width="100" onclick="window.location = '/zodiacInfo/<%=data[0].compatibility[1].toLowerCase().trim()%>';">
+                            <figcaption><%=data[0].compatibility[1].toLowerCase().trim()%></figcaption>
+                        </figure>
+                        <% let url3 = 'https://marketing-kasamba.kassrv.com/content/Marcom/copypress/img-sign-'+data[0].compatibility[2].toLowerCase().trim()+'.png'%>
+                        <% let url4 = 'https://marketing-kasamba.kassrv.com/content/Marcom/copypress/img-sign-'+data[0].compatibility[3].toLowerCase().trim()+'.png'%>
+                        <figure>
+                            <img id="compat" src="<%=url3%>" width="100" onclick="window.location = '/zodiacInfo/<%=data[0].compatibility[2].toLowerCase().trim()%>';">
+                            <figcaption><%=data[0].compatibility[2].toLowerCase().trim()%></figcaption>
+                        </figure>
+                        <figure>
+                            <img id="compat" src="<%=url4%>" width="100" onclick="window.location = '/zodiacInfo/<%=data[0].compatibility[3].toLowerCase().trim()%>';">
+                            <figcaption><%=data[0].compatibility[3].toLowerCase().trim()%></figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
